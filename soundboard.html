@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Beerio Party Soundboard</title>
+    <style media="screen">
+      #board {
+          display: flex;
+          gap: 20px;
+      }
+
+      img {
+        width: 20%;
+        transition: 0.1s;
+      }
+
+      .playing {
+        -webkit-filter: drop-shadow(0px 0px 5px #222222);
+        filter: drop-shadow(0px 0px 5px #222222);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="board"></div>
+    <script type="text/javascript">
+      const sounds = {
+        bowser: {
+          sound: new Audio('/sounds/bowser-laugh.mp3'),
+          image: 'bowser.png'
+        }
+      };
+
+      function playSound(name) {
+        console.log('name', name);
+        const image = document.querySelector(`#${name}-img`);
+        const { sound } = sounds[name];
+        image.classList.toggle('playing')
+        sound.onended = () => {
+          image.classList.toggle('playing')
+        };
+        sound.play();
+      }
+
+      board.innerHTML = Object.entries(sounds)
+        .map(([name, { sound, image }]) => `<img id="${name}-img" src="/images/${image}" onclick="playSound('${name}')">`)
+        .join('\n');
+    </script>
+  </body>
+</html>
