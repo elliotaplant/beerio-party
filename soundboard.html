@@ -6,12 +6,16 @@
     <title>Beerio Party Soundboard</title>
     <style media="screen">
       #board {
-          display: flex;
-          gap: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
       }
 
       img {
-        width: 20%;
+        max-width: 20%;
+        height: auto;
         transition: 0.1s;
       }
 
@@ -26,19 +30,36 @@
     <script type="text/javascript">
       const sounds = {
         bowser: {
-          sound: new Audio('/sounds/bowser-laugh.mp3'),
+          sound: new Audio('/sounds/bowser.mp3'),
           image: 'bowser.png'
-        }
+        },
+        coin: {
+          sound: new Audio('/sounds/coin.mp3'),
+          image: 'coin.png'
+        },
+        star: {
+          sound: new Audio('/sounds/star.mp3'),
+          image: 'star.png'
+        },
+        ohno: {
+          sound: new Audio('/sounds/ohno.mp3'),
+          image: 'ohno.png'
+        },
+        wah: {
+          sound: new Audio('/sounds/wah.mp3'),
+          image: 'wah.png'
+        },
+        lightapplause: {
+          sound: new Audio('/sounds/lightapplause.mp3'),
+          image: 'lightapplause.png'
+        },
       };
 
       function playSound(name) {
-        console.log('name', name);
         const image = document.querySelector(`#${name}-img`);
         const { sound } = sounds[name];
-        image.classList.toggle('playing')
-        sound.onended = () => {
-          image.classList.toggle('playing')
-        };
+        image.classList.add('playing')
+        sound.onended = () => image.classList.remove('playing');
         sound.play();
       }
 
